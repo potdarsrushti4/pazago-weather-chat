@@ -43,30 +43,6 @@ This project demonstrates:
 
 ---
 
-## 📁 Project Structure
-
-pazago-weather-chat/
-│
-├── frontend/ # React (Vite) frontend
-│ ├── src/
-│ │ ├── components/
-│ │ │ └── Chat.jsx
-│ │ └── services/
-│ │ └── weatherApi.js
-│ └── package.json
-│
-├── backend/ # Spring Boot backend
-│ ├── src/main/java/
-│ │ └── com/weather/weather_ai_agent/
-│ │ ├── controller/
-│ │ ├── service/
-│ │ ├── ai/
-│ │ ├── exception/
-│ │ └── model/
-│ └── pom.xml
-│
-└── README.md
-
 📸 Screenshots
 💬 Chat Interface – Natural Language Query
 <img width="512" height="294" alt="unnamed" src="https://github.com/user-attachments/assets/efcbbe0b-b7b9-4629-af9b-6d5e9318ce30" />
