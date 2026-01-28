@@ -53,11 +53,11 @@ function Chat() {
       const agentMessage = {
         role: "agent",
         content:
-  `🌍 City: ${data.city}\n` +
-  `🌡️ Temperature: ${data.temperature}°C\n` +
-  `💧 Humidity: ${data.humidity}%\n` +
-  `☁️ Condition: ${data.condition}\n\n` +
-  `🤖 Advice:\n${data.aiAdvice}`,
+          `🌍 City: ${data.city}\n` +
+          `🌡️ Temperature: ${data.temperature}°C\n` +
+          `💧 Humidity: ${data.humidity}%\n` +
+          `☁️ Condition: ${data.condition}\n\n` +
+          `🤖 Advice:\n${data.aiAdvice}`,
         timestamp: new Date().toLocaleTimeString(),
       };
 
@@ -91,16 +91,6 @@ function Chat() {
     <div className="chat-container">
       <div className="chat-header">🌦️ Weather AI Agent</div>
 
-      {/* 🔹 Quick Action Buttons */}
-      <div className="quick-actions">
-        <button onClick={() => handleQuickQuery("Pune")}>Pune</button>
-        <button onClick={() => handleQuickQuery("Mumbai")}>Mumbai</button>
-        <button onClick={() => handleQuickQuery("Delhi")}>Delhi</button>
-        <button onClick={() => handleQuickQuery("Tell me about weather today?")}>
-          Tell me about weather today
-        </button>
-      </div>
-
       <div className="chat-body">
         {messages.map((msg, index) => (
           <div key={index} className={`chat-message ${msg.role}`}>
@@ -118,6 +108,14 @@ function Chat() {
         )}
 
         <div ref={chatEndRef} />
+      </div>
+
+      {/* Quick Action Buttons */}
+      <div className="quick-actions">
+        <button onClick={() => handleQuickQuery("Pune")}>Pune</button>
+        <button onClick={() => handleQuickQuery("Mumbai")}>Mumbai</button>
+        <button onClick={() => handleQuickQuery("Delhi")}>Delhi</button>
+        <button onClick={() => handleQuickQuery("Chennai")}>Chennai</button>
       </div>
 
       <div className="chat-input">
