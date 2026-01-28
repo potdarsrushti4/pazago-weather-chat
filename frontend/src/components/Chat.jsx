@@ -8,7 +8,7 @@ function Chat() {
   const [lastCity, setLastCity] = useState(null);
   const chatEndRef = useRef(null);
 
-  // Auto-scroll
+  // Auto-scroll to latest message
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
@@ -17,35 +17,58 @@ function Chat() {
   const sendMessageWithText = async (text) => {
     if (!text.trim() || loading) return;
 
+    const userText = text.trim();
+
     const userMessage = {
       role: "user",
-      content: text,
+      content: userText,
       timestamp: new Date().toLocaleTimeString(),
     };
 
     setMessages((prev) => [...prev, userMessage]);
-    setLoading(true);
     setInput("");
+    setLoading(true);
+
+    // ✅ STEP 1: Detect forecast-style queries
+    const isForecastQuery = /tomorrow|next week|forecast|rain tomorrow/i.test(
+      userText.toLowerCase()
+    );
+
+    if (isForecastQuery) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "agent",
+          content:
+            "🌦️ Forecast support coming soon!\n\n" +
+            "I currently provide real-time weather updates like temperature, " +
+            "humidity, and current conditions.\n\n" +
+            "Forecast-based queries (e.g. rain tomorrow) will be supported in a future update 🚀",
+          timestamp: new Date().toLocaleTimeString(),
+        },
+      ]);
+      setLoading(false);
+      return; // ⛔ do NOT hit backend
+    }
 
     try {
-      // Detect follow-up questions
+      // ✅ STEP 2: Detect follow-up questions
       const looksLikeQuestion =
-        text.toLowerCase().includes("?") ||
-        text.toLowerCase().startsWith("what") ||
-        text.toLowerCase().startsWith("is") ||
-        text.toLowerCase().startsWith("should") ||
-        text.toLowerCase().startsWith("do i");
+        userText.toLowerCase().includes("?") ||
+        userText.toLowerCase().startsWith("what") ||
+        userText.toLowerCase().startsWith("should") ||
+        userText.toLowerCase().startsWith("do i");
 
-      let query = text;
+      let query = userText;
 
-      // Reuse last city for follow-ups
+      // Reuse last city ONLY for follow-ups
       if (lastCity && looksLikeQuestion) {
-        query = lastCity; // only city goes to backend
+        query = lastCity;
       }
-
 
       const data = await getWeather(query);
 
+      // Remember city
       if (data.city) {
         setLastCity(data.city);
       }
@@ -78,10 +101,10 @@ function Chat() {
     }
   };
 
-  // 🔹 Input send
+  // Input send
   const sendMessage = () => sendMessageWithText(input);
 
-  // 🔹 Quick button handler
+  // Quick buttons
   const handleQuickQuery = (text) => {
     if (loading) return;
     sendMessageWithText(text);
@@ -110,7 +133,7 @@ function Chat() {
         <div ref={chatEndRef} />
       </div>
 
-      {/* Quick Action Buttons */}
+      {/* ✅ Quick Action Buttons (reviewer friendly) */}
       <div className="quick-actions">
         <button onClick={() => handleQuickQuery("Pune")}>Pune</button>
         <button onClick={() => handleQuickQuery("Mumbai")}>Mumbai</button>
