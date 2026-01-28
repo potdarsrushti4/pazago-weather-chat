@@ -97,7 +97,7 @@ function Chat() {
         <button onClick={() => handleQuickQuery("Mumbai")}>Mumbai</button>
         <button onClick={() => handleQuickQuery("Delhi")}>Delhi</button>
         <button onClick={() => handleQuickQuery("Tell me about weather today?")}>
-          What should I take today?
+          Tell me about weather today
         </button>
       </div>
 
