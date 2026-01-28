@@ -53,11 +53,11 @@ function Chat() {
       const agentMessage = {
         role: "agent",
         content:
-          `🌍 City: ${data.city}\n` +
-          `🌡️ Temperature: ${data.temperature}°C\n` +
-          `💧 Humidity: ${data.humidity}%\n` +
-          `☁️ Condition: ${data.condition}\n\n` +
-          `🤖 Advice:\n${data.aiAdvice}`,
+  `🌍 City: ${data.city}\n` +
+  `🌡️ Temperature: ${data.temperature}°C\n` +
+  `💧 Humidity: ${data.humidity}%\n` +
+  `☁️ Condition: ${data.condition}\n\n` +
+  `🤖 Advice:\n${data.aiAdvice}`,
         timestamp: new Date().toLocaleTimeString(),
       };
 
@@ -96,7 +96,7 @@ function Chat() {
         <button onClick={() => handleQuickQuery("Pune")}>Pune</button>
         <button onClick={() => handleQuickQuery("Mumbai")}>Mumbai</button>
         <button onClick={() => handleQuickQuery("Delhi")}>Delhi</button>
-        <button onClick={() => handleQuickQuery("What should I take today?")}>
+        <button onClick={() => handleQuickQuery("Tell me about weather today?")}>
           What should I take today?
         </button>
       </div>
