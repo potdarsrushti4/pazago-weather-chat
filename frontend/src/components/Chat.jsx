@@ -40,8 +40,9 @@ function Chat() {
 
       // Reuse last city for follow-ups
       if (lastCity && looksLikeQuestion) {
-        query = `${text} in ${lastCity}`;
+        query = lastCity; // only city goes to backend
       }
+
 
       const data = await getWeather(query);
 
